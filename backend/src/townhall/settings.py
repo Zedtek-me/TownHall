@@ -16,6 +16,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -31,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +43,7 @@ INSTALLED_APPS = [
     # external apps
     'main',
     'rest_framework',
-    'graphene_django',
-    'daphne'
+    'graphene_django'
 ]
 
 MIDDLEWARE = [
@@ -84,7 +86,8 @@ DATABASES = {
         'NAME': os.getenv("POSTGRES_DB"),
         'HOST': os.getenv("POSTGRES_HOST"),
         'PORT': os.getenv("POSTGRES_PORT"),
-        'USER': os.getenv("POSTGRES_USER")
+        'USER': os.getenv("POSTGRES_USER"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD")
     }
 }
 

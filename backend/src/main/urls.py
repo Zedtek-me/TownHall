@@ -1,6 +1,6 @@
 from django.urls import path
 from django.http import HttpResponse
 
-url_patterns = [
+urlpatterns = [
     path("api/", lambda req: HttpResponse("Dummy api view for now"), name="api")
 ]
