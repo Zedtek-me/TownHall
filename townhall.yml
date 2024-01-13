@@ -17,6 +17,7 @@ services:
     restart: always
     depends_on: 
       - database
+      - redis
 
   # frontend
   townhall_frontend:
@@ -62,3 +63,11 @@ services:
     volumes:
       - ./backend/nginx:/backend/nginx
       - ./backend/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+
+  # redis
+  redis:
+    image: redis
+    container_name: townhall_redis
+    ports:
+      - 6379:6379
+    restart: always
