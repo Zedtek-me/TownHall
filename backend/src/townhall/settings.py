@@ -73,7 +73,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'townhall.wsgi.application'
-
+ASGI_APPLICATION = 'townhall.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -88,6 +88,18 @@ DATABASES = {
     }
 }
 
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            'hosts':[('redis', 6379)]
+        }
+    }
+}
+
+GRAPHENE = {
+    "SCHEMA": "townhall.schema.schema"
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
