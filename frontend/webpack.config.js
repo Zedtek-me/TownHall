@@ -2,10 +2,10 @@ const path = require("path")
 
 
 module.exports = {
-    entry:"",
+    entry:path.resolve(__dirname, "src/Roots/index.js"),
     output:{
-        filename:"",
-        path:""
+        filename:"index.js",
+        path:path.resolve(__dirname, "public/")
     },
     module:{
         rules:[
@@ -13,7 +13,9 @@ module.exports = {
                 test:/\.(js|jsx)$/,
                 use:{
                     loader:"babel-loader",
-                    options:["@babel/preset-env", "@babel/preset-react"]
+                    options:{
+                        presets:["@babel/preset-env", "@babel/preset-react"]
+                    }
                 }
             },
             {
