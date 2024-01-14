@@ -5,7 +5,7 @@ from main.serializers import UserSerializer
 # Create your views here.
 
 
-@api_view("POST")
+@api_view(["POST"])
 def create_user(request):
     data = request.data
     serialized_data = UserSerializer(data=data)
