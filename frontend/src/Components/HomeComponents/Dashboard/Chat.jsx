@@ -6,6 +6,7 @@ export default function Chat(){
     return (
         <div className="chat">
             {/* where user can chat with a friend */}
+            Chat here
         </div>
     )
 }
