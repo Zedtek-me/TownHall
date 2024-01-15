@@ -29,7 +29,7 @@ module.exports = {
         ]
     },
     devServer:{
-        static:"./plubic",
+        static:"./public",
         historyApiFallback:true,
         hot:true,
         port:3001
