@@ -1,9 +1,13 @@
 import React, {useState, useContext} from "react";
-import { wsFactory } from "../../../../utils/chat";
+import { wsContext } from "../../../Roots/App.jsx";
+
 
 export default function Chat(){
-    const [currentUser, setCurrentUser] = useState(null)
-    const [currentTimeStamp, setCurrentTimeStamp] = useState(null)
+    const [localUser, setLocalUser] = useState(null)
+    const [remoteUser, setRemoteUser] = useState(null)
+    const [messages, setMessages] = useState([])
+    const ws = useContext(wsContext)
+
     const dateOptions = {
         year: 'numeric',
         month: 'long',
@@ -26,7 +30,10 @@ export default function Chat(){
 
             {/* local and remote chat */}
             <div className="local-and-remote-chat">
-                <h4 id="chat-timestamp">{currentTimeStamp || `${new Date().toLocaleString("UTC", dateOptions).replace(" at", ",")}`}</h4>
+                {
+                    
+                }
+                <h4 id="chat-timestamp">{`${new Date().toLocaleString("UTC", dateOptions).replace(" at", ",")}`}</h4>
                 <div className="remote-chat">Remote chat container</div>
                 <div className="local-chat">Local chat container</div>
                 {/* NOTE:

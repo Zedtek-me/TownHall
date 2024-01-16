@@ -41,3 +41,15 @@
     align-self: flex-end !important;
     text-align: right;
 }
+
+/* profile pic and name section */
+
+.profilePicAndName{
+    display: flex;
+    justify-content: space-between;
+    align-items:center
+}
+
+.profilePicAndName > *{
+    margin: 8px;
+}
