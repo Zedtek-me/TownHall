@@ -10,7 +10,7 @@ class TownHallConsumer(AsyncWebsocketConsumer):
     '''
 
     def connect(self):
-        print(f"user: {self.scope.user} just connected!")
+        print(f"user: {self.scope.get('user')} just connected!")
         return super().connect()
 
     def receive(self, text_data=None, bytes_data=None):
