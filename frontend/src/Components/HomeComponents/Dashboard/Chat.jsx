@@ -7,7 +7,6 @@ export default function Chat(){
     const [remoteUser, setRemoteUser] = useState(null)
     const [messages, setMessages] = useState([])
     const ws = useContext(wsContext)
-
     const dateOptions = {
         year: 'numeric',
         month: 'long',
