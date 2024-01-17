@@ -5,7 +5,7 @@ module.exports = {
     entry:path.resolve(__dirname, "src/Roots/index.js"),
     output:{
         filename:"index.js",
-        path:path.resolve(__dirname, "public/")
+        path:path.resolve(__dirname, "public")
     },
     module:{
         rules:[
@@ -29,7 +29,7 @@ module.exports = {
         ]
     },
     devServer:{
-        static:"./public",
+        static:path.resolve(__dirname, "./public"),
         historyApiFallback:true,
         hot:true,
         port:3001

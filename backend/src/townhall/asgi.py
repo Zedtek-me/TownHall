@@ -17,7 +17,7 @@ from main.routing import chat_routes
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'townhall.settings')
 
 application = ProtocolTypeRouter({
-    "http":get_asgi_application,
+    "http":get_asgi_application(),
     "websocket": AuthMiddlewareStack(
             URLRouter(chat_routes)
     )
