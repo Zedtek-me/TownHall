@@ -1,11 +1,12 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useRef, useEffect} from "react";
 import { wsContext } from "../../../Roots/App.jsx";
+import { getMessages, getUser } from "../../../../utils/chat.js";
 
-
-export default function Chat(){
+export default function Chat({remoteUserId}){
     const [localUser, setLocalUser] = useState(null)
     const [remoteUser, setRemoteUser] = useState(null)
     const [messages, setMessages] = useState([])
+    const chatContainerRef = useRef(null)
     const ws = useContext(wsContext)
     const dateOptions = {
         year: 'numeric',
@@ -17,6 +18,19 @@ export default function Chat(){
         hour12: false, // Use 24-hour format
       };
 
+    //display all our previous messages before appending the current ones based on our chats   
+      useEffect(()=>{
+        async function setMessages(){
+            let messages = await getMessages("chat", remoteUser.id, localUser.id)
+            setMessages(messages || [])
+            return
+        }
+        setMessages()
+        getUser(remoteUserId)
+        .then((userData)=>setRemoteUser(userData))
+
+      }, [remoteUserId])
+
     return (
         <div className="chat">
             <div className="navigateBackArrow">
@@ -27,19 +41,25 @@ export default function Chat(){
                 <h3 id="friend-username">Friend Username</h3>
             </div>
 
-            {/* local and remote chat */}
-            <div className="local-and-remote-chat">
-                {
-                    
-                }
-                <h4 id="chat-timestamp">{`${new Date().toLocaleString("UTC", dateOptions).replace(" at", ",")}`}</h4>
-                <div className="remote-chat">Remote chat container</div>
-                <div className="local-chat">Local chat container</div>
-                {/* NOTE:
-                    These 3 elements will have to be re-created every new day 
-                    when the user starts a chat (on the condition that the date of the `currentTimeS` !== today's date. All chats will be appended to the last of these containers) 
-                */}
-            </div>
+            {
+                messages ? (
+                    <div className="local-and-remote-chat" ref={chatContainerRef}>
+                        {
+                            messages.map((message)=>{
+                                <div className="remote-and-local-scope">
+                                    <div className="timestamp">{message.date_created}</div>
+                                    <div className="local-chat">{message.by}</div>
+                                    <div className="remote-chat">{message.from}</div>
+                                </div>
+                            })
+                        }
+                    </div>
+                ) : (
+                    <div className="local-and-remote-chat">
+
+                    </div>
+                )
+            }
         </div>
     )
 }
