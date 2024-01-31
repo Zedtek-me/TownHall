@@ -19,13 +19,13 @@ export default function Chat({remoteUserId}){
       };
 
     //display all our previous messages before appending the current ones based on our chats   
-      useEffect(()=>{
+      useEffect(async ()=>{
         async function setMessages(){
             let messages = await getMessages("chat", remoteUser.id, localUser.id)
             setMessages(messages || [])
             return
         }
-        setMessages()
+        await setMessages()
         getUser(remoteUserId)
         .then((userData)=>setRemoteUser(userData))
 
