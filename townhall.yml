@@ -9,14 +9,12 @@ services:
       - ./backend:/backend
       - ./backend/.env:/backend/.env
     ports:
-      - 8000:8000
-      - 8080:8080
-      - 9000:9000
+      - 7000
     env_file:
       - ./backend/.env
     restart: always
     depends_on: 
-      - database
+      - townhall_database
       - redis
 
   # frontend
@@ -38,17 +36,19 @@ services:
       - townhall_backend
 
   # database
-  database:
+  townhall_database:
     build:
       context: .
       dockerfile: ./backend/postgres/Dockerfile
-    image: postgres
-    container_name: database
-    restart: always
+    image: townhall_database
+    container_name: townhall_database
+    restart: unless-stopped
     env_file:
       ./backend/.env
     ports:
       - 5432:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data/database_file
 
   # deployment server -- nginx
   nginx:
@@ -68,3 +68,6 @@ services:
     ports:
       - 6379:6379
     restart: always
+
+volumes:
+  pg_data:
